@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Клан Нара — Конохагакуре-но Сато</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0e09;
+    --bg-panel:#14170f;
+    --bg-panel-2:#191c13;
+    --line:#2b2f21;
+    --moss:#5c6b3f;
+    --moss-light:#8b9866;
+    --bronze:#ab8c53;
+    --bronze-light:#cdb37a;
+    --ink:#e9e6d8;
+    --ink-dim:#b7b8a3;
+    --ink-faint:#7d8071;
+    --shadow-tint:#15151c;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3,h4{font-family:'PT Serif',serif;font-weight:700;color:var(--ink);}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+
+  /* background texture: faint forest silhouette + shadow streaks */
+  .texture{
+    position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.5;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -5%, rgba(92,107,63,0.16), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(171,140,83,0.08), transparent 55%);
+  }
+
+  /* NAV */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(12,14,9,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:1080px;margin:0 auto;padding:16px 32px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand svg{width:30px;height:30px;flex-shrink:0;}
+  .brand-name{font-family:'PT Serif',serif;font-size:1.05rem;letter-spacing:0.02em;color:var(--ink);}
+  .brand-name span{display:block;font-family:'Manrope',sans-serif;font-size:0.66rem;color:var(--ink-faint);letter-spacing:0.12em;margin-top:2px;}
+  .navlinks{display:flex;gap:34px;font-size:0.9rem;}
+  .navlinks a{color:var(--ink-dim);position:relative;padding-bottom:4px;transition:color .2s;}
+  .navlinks a:hover{color:var(--bronze-light);}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--bronze);transition:width .25s;}
+  .navlinks a:hover::after{width:100%;}
+  @media(max-width:720px){.navlinks{display:none;}}
+
+  /* HERO */
+  .hero{
+    position:relative;z-index:1;
+    padding:100px 0 80px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    color:var(--moss-light);font-size:0.85rem;margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .hero .eyebrow .rule{width:34px;height:1px;background:var(--moss-light);}
+  .hero h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.05;max-width:820px;}
+  .hero h1 em{font-style:italic;color:var(--bronze-light);}
+  .hero .lead{
+    margin-top:22px;max-width:640px;color:var(--ink-dim);font-size:1.08rem;
+  }
+  .hero-tags{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;}
+  .tag{
+    border:1px solid var(--line);background:var(--bg-panel);
+    padding:9px 16px;border-radius:2px;font-size:0.85rem;color:var(--ink-dim);
+    display:flex;align-items:center;gap:8px;
+  }
+  .tag .dot{width:6px;height:6px;background:var(--bronze);border-radius:50%;flex-shrink:0;}
+
+  .hero-panel{
+    margin-top:56px;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--bg-panel), var(--bg-panel-2));
+    padding:36px 38px;
+    position:relative;
+  }
+  .hero-panel::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--moss);
+  }
+  .hero-panel h3{font-size:1.15rem;margin-bottom:12px;color:var(--bronze-light);}
+  .hero-panel p{color:var(--ink-dim);font-size:0.98rem;max-width:680px;}
+
+  /* SECTION generic */
+  section{position:relative;z-index:1;padding:78px 0;border-bottom:1px solid var(--line);}
+  .kicker{
+    color:var(--moss-light);font-size:0.85rem;margin-bottom:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .kicker .rule{width:34px;height:1px;background:var(--moss-light);}
+  section h2{font-size:clamp(1.8rem,3.4vw,2.5rem);max-width:600px;margin-bottom:26px;}
+  .prose{color:var(--ink-dim);max-width:700px;font-size:1.02rem;}
+  .prose + .prose{margin-top:16px;}
+  .prose strong{color:var(--ink);font-weight:600;}
+
+  /* REGLAMENT */
+  .reglament-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;margin-top:8px;}
+  @media(max-width:800px){.reglament-grid{grid-template-columns:1fr;}}
+  .rule-block{border-left:2px solid var(--moss);padding-left:22px;}
+  .rule-block h4{font-size:1.05rem;color:var(--bronze-light);margin-bottom:10px;font-family:'PT Serif',serif;}
+  .rule-block p{color:var(--ink-dim);font-size:0.97rem;}
+  .shogi-btn{
+    display:inline-flex;align-items:center;gap:10px;margin-top:22px;
+    background:var(--bronze);color:#14170f;
+    font-family:'PT Serif',serif;font-size:1.05rem;font-weight:700;
+    padding:16px 30px;border-radius:2px;
+    box-shadow:0 0 0 1px var(--bronze);
+    transition:background .2s, transform .2s;
+  }
+  .shogi-btn svg{width:18px;height:18px;flex-shrink:0;transition:transform .2s;}
+  .shogi-btn:hover{background:var(--bronze-light);transform:translateY(-1px);}
+  .shogi-btn:hover svg{transform:translateX(3px);}
+
+  /* ROLE */
+  .role-note{
+    margin-top:28px;border:1px solid var(--line);background:var(--bg-panel);
+    padding:24px 28px;max-width:700px;font-size:0.95rem;color:var(--ink-dim);
+  }
+  .role-note b{color:var(--bronze-light);}
+
+  /* TERRITORIES */
+  .territories{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+    background:var(--line);margin-top:36px;border:1px solid var(--line);
+  }
+  @media(max-width:860px){.territories{grid-template-columns:1fr;}}
+  .territory{background:var(--bg-panel);padding:32px 28px;}
+  .territory .num{font-family:'PT Serif',serif;font-style:italic;color:var(--moss-light);font-size:0.85rem;margin-bottom:16px;display:block;}
+  .territory h4{font-size:1.12rem;margin-bottom:12px;line-height:1.3;}
+  .territory p{color:var(--ink-dim);font-size:0.92rem;}
+
+  /* TECHNIQUES */
+  .jutsu-layout{display:grid;grid-template-columns:0.9fr 1.1fr;gap:0;margin-top:36px;border:1px solid var(--line);}
+  @media(max-width:840px){.jutsu-layout{grid-template-columns:1fr;}}
+  .jutsu-demo{
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(92,107,63,0.22), transparent 60%),
+      var(--shadow-tint);
+    padding:44px 34px;display:flex;flex-direction:column;justify-content:center;
+    border-right:1px solid var(--line);
+    min-height:280px;
+  }
+  @media(max-width:840px){.jutsu-demo{border-right:none;border-bottom:1px solid var(--line);}}
+  .jutsu-demo .label{font-size:0.78rem;letter-spacing:0.1em;color:var(--ink-faint);margin-bottom:14px;}
+  .jutsu-demo h3{font-size:1.5rem;color:var(--bronze-light);margin-bottom:10px;}
+  .jutsu-demo p{color:var(--ink-dim);font-size:0.93rem;}
+  .jutsu-info{padding:44px 38px;}
+  .jutsu-info .jname{font-size:0.85rem;color:var(--moss-light);margin-bottom:10px;}
+  .jutsu-info p{color:var(--ink-dim);font-size:0.98rem;}
+  .jutsu-info .divider{width:100%;height:1px;background:var(--line);margin:22px 0;}
+  .jutsu-meta{display:flex;gap:28px;flex-wrap:wrap;}
+  .jutsu-meta div{font-size:0.82rem;color:var(--ink-faint);}
+  .jutsu-meta div b{display:block;color:var(--ink);font-size:0.98rem;font-family:'PT Serif',serif;margin-top:3px;}
+
+  /* ENCYCLOPEDIA */
+  .encyclopedia{
+    margin-top:36px;display:flex;gap:30px;align-items:center;
+    border:1px solid var(--line);background:var(--bg-panel);padding:30px 32px;
+  }
+  @media(max-width:700px){.encyclopedia{flex-direction:column;align-items:flex-start;}}
+  .encyclopedia svg{width:52px;height:52px;flex-shrink:0;color:var(--bronze);}
+  .encyclopedia h4{font-size:1.15rem;margin-bottom:8px;}
+  .encyclopedia p{color:var(--ink-dim);font-size:0.95rem;}
+
+  /* FOOTER */
+  footer{padding:56px 0 46px;position:relative;z-index:1;}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:28px;}
+  .footer-head{max-width:420px;}
+  .footer-head .kicker{margin-bottom:10px;}
+  .footer-head p{color:var(--ink-dim);font-size:0.92rem;}
+  .leader-card{
+    border:1px solid var(--line);background:var(--bg-panel);
+    padding:20px 26px;min-width:230px;
+  }
+  .leader-card .role{font-size:0.76rem;color:var(--ink-faint);letter-spacing:0.06em;margin-bottom:6px;}
+  .leader-card .name{font-family:'PT Serif',serif;font-size:1.2rem;color:var(--bronze-light);}
+  .footer-line{
+    margin-top:44px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:0.78rem;color:var(--ink-faint);letter-spacing:0.05em;
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<div class="texture"></div>
+
+<header>
+  <nav>
+    <div class="brand">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 4C16 10 16 16 20 20C24 16 24 10 20 4Z" fill="#5c6b3f"/>
+        <path d="M20 20C14 20 8 24 6 32C12 30 16 30 20 34C24 30 28 30 34 32C32 24 26 20 20 20Z" fill="#ab8c53" fill-opacity="0.85"/>
+      </svg>
+      <div class="brand-name">Клан Нара<span>Конохагакуре-но Сато</span></div>
+    </div>
+    <div class="navlinks">
+      <a href="#glavnaya">Главная</a>
+      <a href="#reglament">Регламент</a>
+      <a href="#vladeniya">Владения</a>
+      <a href="#tehniki">Техники</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero" id="glavnaya" style="border-top:none;">
+    <div class="wrap">
+      <div class="eyebrow"><span class="rule"></span>Клан теней · Скрытый Лист</div>
+      <h1>Хранители тайн и <em>секретов</em><br>Скрытого Листа</h1>
+      <p class="lead">Клан Нара славится умом и ниндзюцу управления тенями, а также заботой об оленях, что пасутся в лесу на территории клана. В бою с представителем клана любая тень становится смертельной угрозой, а схватка — словно партия в сёги, где ошибка стоит дорого.</p>
+
+      <div class="hero-tags">
+        <div class="tag"><span class="dot"></span>Кагэ Буньо · Стихия теней</div>
+        <div class="tag"><span class="dot"></span>Партия в сёги</div>
+        <div class="tag"><span class="dot"></span>Олени леса Нара</div>
+      </div>
+
+      <div class="hero-panel">
+        <h3>Кагэсибари но Дзюцу</h3>
+        <p>Врождённая способность клана Нара: пользователь совмещает свою тень с тенью цели, полностью ограничивая её движения — цель повторяет все действия пользователя и может лишь говорить.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="reglament">
+    <div class="wrap">
+      <div class="kicker"><span class="rule"></span>Устав клана</div>
+      <h2>Регламент</h2>
+      <div class="reglament-grid">
+        <div class="rule-block">
+          <h4>Верность Конохе</h4>
+          <p>Наша верность Конохе и Хокаге не знает компромиссов — лишь в хладнокровном расчёте и строгой дисциплине кроется истинная сила, способная удержать деревню даже в самый яростный шторм. Мы бережём силы не из слабости, а ради того, чтобы в решающий миг наш шаг стал неотвратимым, а тень — непробиваемой преградой на пути врага.</p>
+        </div>
+        <div class="rule-block">
+          <h4>Разрешение внутренних конфликтов</h4>
+          <p>В случае внутриклановых разногласий всё решается диалогом. Если же данный метод не даёт результата, то правый выясняется партией в сёги.</p>
+          <a class="shogi-btn" href="https://yandex.ru/games/app/468263" target="_blank" rel="noopener">
+            <span>Сыграть в сёги</span>
+            <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rol">
+    <div class="wrap">
+      <div class="kicker"><span class="rule"></span>Место в деревне</div>
+      <h2>Роль клана</h2>
+      <p class="prose">Клан Нара — универсальный клан, в основном выполняющий роль стратегов и рьенинов. В иной ситуации выполняет ту роль, которую прикажет Хокаге.</p>
+      <div class="role-note">Приказам Каге подчиняются абсолютно все, однако приказы особого рода даются лишь <b>избранным</b>.</div>
+    </div>
+  </section>
+
+  <section id="vladeniya">
+    <div class="wrap">
+      <div class="kicker"><span class="rule"></span>Территории клана</div>
+      <h2>Владения</h2>
+      <p class="prose">Во власти семьи Нара находится три территории.</p>
+
+      <div class="territories">
+        <div class="territory">
+          <span class="num">I.</span>
+          <h4>Поместье Клана Нара</h4>
+          <p>Родовое владение: традиционные деревянные постройки, внутренние дворы, кабинет главы клана и архив, где хранятся клановые записи и медицинские трактаты. Окружено оградой, уединённо расположено.</p>
+        </div>
+        <div class="territory">
+          <span class="num">II.</span>
+          <h4>Лес Клана Нара</h4>
+          <p>Обширная территория на окраине деревни, где пасутся олени, разведением которых занимается клан. Густая роща с дикими травами, служащими сырьём для лекарств. Доступ посторонним ограничен.</p>
+        </div>
+        <div class="territory">
+          <span class="num">III.</span>
+          <h4>Научно-исследовательский центр</h4>
+          <p>Скрытый комплекс глубоко в горах, где клан изучает медицинские препараты и теневые техники. Слабо охраняется, но труднодоступен из-за расположения. Доступ только по разрешению главы клана.</p>
+        </div>
+      </div>
+
+      <div class="encyclopedia">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5V4.5Z"/><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg>
+        <div>
+          <h4>Медицинская Энциклопедия Клана Нара</h4>
+          <p>Хранится в архиве родового поместья — собрание знаний о лечебных травах леса Нара и других препаратах, изучаемых в научно-исследовательском центре клана.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tehniki" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="kicker"><span class="rule"></span>Архив техник</div>
+      <h2>Техники</h2>
+      <p class="prose">Тень — их язык, тишина — их оружие. Смотри, как клан Нара говорит на языке теней, прежде чем прочитать об этом.</p>
+
+      <div class="jutsu-layout">
+        <div class="jutsu-demo">
+          <div class="label">ДЕМОНСТРАЦИЯ</div>
+          <h3>Кагэсибари но Дзюцу</h3>
+          <p>Тень скользит по земле и находит свою цель — движение исчезает, остаётся лишь голос.</p>
+        </div>
+        <div class="jutsu-info">
+          <div class="jname">Кагэ Буньо · Стихия теней</div>
+          <p>Пользователь совмещает свою тень с тенью цели, полностью ограничивая её движения. Захваченный повторяет каждое движение пользователя и способен лишь говорить — единственный канал, что остаётся открытым.</p>
+          <div class="divider"></div>
+          <div class="jutsu-meta">
+            <div>Тип<b>Связывание</b></div>
+            <div>Стихия<b>Тень</b></div>
+            <div>Клан<b>Нара</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-head">
+        <div class="kicker"><span class="rule"></span>Клан Нара</div>
+        <p>Родовое поместье, лес и научно-исследовательский центр клана Нара служат Скрытому Листу расчётом, дисциплиной и терпением тени.</p>
+      </div>
+      <div class="leader-card">
+        <div class="role">Глава клана</div>
+        <div class="name">Blake Nara</div>
+      </div>
+    </div>
+    <div class="footer-line">КЛАН НАРА · КОНОХАГАКУРЕ-НО САТО · ТЕНЬ И РАЗУМ</div>
+  </div>
+</footer>
+
+</body>
+</html>
